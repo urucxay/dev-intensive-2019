@@ -28,7 +28,22 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
 }
 
 fun Date.humanizeDiff(date: Date = Date()): String {
-    val difference = date.time - this.time
+    var difference = date.time - this.time
+
+    fun dif(type: Long, forOne: String = "", forTwoToFour: String ="", other: String = "") : String {
+
+        if (difference<0) {
+            difference = -difference
+        }
+
+        return when {
+            difference/ type in 10..19 -> other
+            difference/ type in 0..1 || (difference/type)%10 in 0..1  -> forOne
+            difference/ type in 1..4 || (difference/type)%10 in 1..4  -> forTwoToFour
+            (difference/type)%10 in 10..19 -> other
+            else -> other
+        }
+    }
 
     if (difference < 0) {
         return when(-difference) {
@@ -36,13 +51,13 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             in 1*SECOND..45*SECOND -> "через несколько секунд"
             in 45*SECOND..75* SECOND -> "через минуту"
             in 75*SECOND..45* MINUTE -> "через ${-difference/ MINUTE}" +
-                    " минут${if (-difference/ MINUTE in 1..1) "у" else if (-difference/ MINUTE in 2..4) "ы" else ""}"
+                    " минут${dif(MINUTE, "у", "ы", "")}"
             in 45*MINUTE..75* MINUTE -> "через час"
             in 75* MINUTE..22* HOUR -> "через ${-difference/ HOUR}" +
-                    " час${if (-difference/ HOUR in 1..1) "" else if (-difference/ HOUR in 2..4) "а" else "ов"}"
+                    " час${dif(HOUR, "", "а", "ов")}"
             in 22* HOUR..26* HOUR -> "через день"
             in 26* HOUR..360* DAY -> "через ${-difference/ DAY}" +
-                    " ${if (-difference/ DAY in 1..1) "день" else if (-difference/ DAY in 2..4) "дня" else "дней"}"
+                    " ${dif(DAY, "день", "дня", "дней")}"
             else -> "более чем через год"
         }
     } else {
@@ -51,13 +66,13 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             in 1*SECOND..45*SECOND -> "несколько секунд назад"
             in 45*SECOND..75* SECOND -> "минуту назад"
             in 75*SECOND..45* MINUTE -> "${difference/ MINUTE}" +
-                    " минут${if (difference / MINUTE in 0..1) "у" else if (difference / MINUTE in 2..4) "ы" else ""} назад"
+                    " минут${dif(MINUTE, "у", "ы", "")} назад"
             in 45*MINUTE..75* MINUTE -> "час назад"
             in 75* MINUTE..22* HOUR -> "${difference/ HOUR}" +
-                    " час${if (difference / HOUR in 1..1) "" else if (difference / HOUR in 2..4) "а" else "ов"} назад"
+                    " час${dif(HOUR, "", "а", "ов")} назад"
             in 22* HOUR..26* HOUR -> "День назад"
             in 26* HOUR..360* DAY -> "${difference/ DAY}" +
-                    " ${if (difference / DAY in 1..1) "день" else if (difference / DAY in 2..4) "дня" else "дней"} назад"
+                    " ${dif(DAY, "день", "дня", "дней")} назад"
             else -> "более года назад"
         }
     }
