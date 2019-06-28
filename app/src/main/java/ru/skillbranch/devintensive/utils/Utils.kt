@@ -61,10 +61,10 @@ object Utils {
 
     fun toInitials(firstName: String?, lastName: String?): String? {
         val firstLetter = if (firstName?.trim().isNullOrEmpty()) null else firstName?.first()?.toUpperCase()
-//        val secondLetter = if (firstLetter != null) lastName?.first() ?: "" else null
         val secondLetter = if (lastName?.trim().isNullOrEmpty()) null else lastName?.first()?.toUpperCase()
 
         return when {
+            firstLetter == null && secondLetter == null -> null
             firstLetter == null -> "$secondLetter"
             secondLetter == null -> "$firstLetter"
             else -> "$firstLetter$secondLetter"

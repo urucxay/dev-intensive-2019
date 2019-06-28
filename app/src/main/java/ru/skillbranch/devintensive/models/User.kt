@@ -32,6 +32,7 @@ data class User (
         }
     }
 
+
     class Builder {
         private var id: String = "0"
         private var firstName: String? = null
