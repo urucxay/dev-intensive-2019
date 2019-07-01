@@ -40,8 +40,10 @@ object Utils {
 
     fun parseFullName(fullName: String?): Pair<String?, String?> {
         val parts: List<String>? = fullName?.split(" ")
+
         val firstName = if (parts?.getOrNull(0).isNullOrEmpty()) null else parts?.get(0)
         val lastName = if (parts?.getOrNull(1).isNullOrEmpty()) null else parts?.get(1)
+
         return firstName to lastName
     }
 
@@ -59,8 +61,18 @@ object Utils {
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
+
+//        val firstLetter = firstName?.trim()?.firstOrNull()?.toUpperCase()
+//        val secondLetter = lastName?.trim()?.firstOrNull()?.toUpperCase()
+
+//        val firstLetter = if (firstName.isNullOrBlank()) null else firstName.first().toUpperCase()
+//        val secondLetter = if (lastName.isNullOrBlank()) null else lastName.first().toUpperCase()
+
+//        Попробую вариант выше
         val firstLetter = if (firstName?.trim().isNullOrEmpty()) null else firstName?.first()?.toUpperCase()
         val secondLetter = if (lastName?.trim().isNullOrEmpty()) null else lastName?.first()?.toUpperCase()
+
+
 
         return when {
             firstLetter == null && secondLetter == null -> null

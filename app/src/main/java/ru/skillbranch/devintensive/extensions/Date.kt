@@ -38,7 +38,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
 
         return when {
             difference/type in 5..20 -> other
-            (difference/type)%10 in 0..1  -> forOne
+            (difference/type)%10  == 1L  -> forOne
             (difference/type)%10 in 2..4  -> forTwoToFour
             else -> other
         }
@@ -69,7 +69,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             in 45*MINUTE..75*MINUTE -> "час назад"
             in 75*MINUTE..22*HOUR -> "${difference/ HOUR}" +
                     " ${dif(HOUR, "час", "часа", "часов")} назад"
-            in 22*HOUR..26*HOUR -> "День назад"
+            in 22*HOUR..26*HOUR -> "день назад"
             in 26*HOUR..360*DAY -> "${difference/ DAY}" +
                     " ${dif(DAY, "день", "дня", "дней")} назад"
             else -> "более года назад"
