@@ -77,9 +77,25 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     }
 }
 
-enum class TimeUnits {
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY
+enum class TimeUnits(val ONE: String, val FEW: String, val MANY: String) {
+
+    SECOND("секунду", "секунды", "секунд"),
+    MINUTE("минуту", "минуты", "минут"),
+    HOUR("час", "часа", "часов"),
+    DAY("день", "дня", "дней");
+
+    fun plural(num: Int) : String {
+        return "$num ${this.getAmount(num)}"
+    }
+
+    private fun getAmount(num: Int) : String {
+        return when{
+            num in 5..20 -> MANY
+            num%10  == 1  -> ONE
+            num%10 in 2..4  -> FEW
+            else -> MANY
+        }
+    }
+
+
 }
