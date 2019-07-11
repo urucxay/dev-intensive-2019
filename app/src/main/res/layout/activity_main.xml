@@ -1,18 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center"
+        android:textSize="@dimen/font_large_24"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/iv_bender"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/bender_dance"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/color_primary"
+        android:layout_marginTop="@dimen/spacing_normal_16">
+
+        <EditText
+            android:id="@+id/et_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:layout_weight="1"
+            android:textColor="@color/color_gray_light"
+            android:textColorHint="@color/color_gray_light"
+            android:hint="Введите текст"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:paddingTop="@dimen/spacing_normal_16"
+            android:paddingBottom="@dimen/spacing_normal_16"
+            android:layout_marginLeft="@dimen/spacing_normal_16"
+            android:layout_marginRight="@dimen/spacing_normal_16"/>
+
+        <ImageView
+            android:id="@+id/iv_send"
+            android:layout_width="@dimen/send_button_size"
+            android:layout_height="@dimen/send_button_size"
+            android:src="@drawable/ic_send_black_24dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/spacing_normal_16"/>
+
+    </LinearLayout>
+
+</LinearLayout>
