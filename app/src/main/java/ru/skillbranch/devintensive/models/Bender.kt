@@ -15,9 +15,9 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     fun listenAnswer(answer: String): Pair<String, Triple<Int, Int, Int>> {
 
         return when {
-            question == Question.NAME && (answer.first().isLowerCase() || answer.first().isDigit()) ->
+            question == Question.NAME && (answer.isEmpty() || answer.first().isLowerCase() || answer.first().isDigit()) ->
                 "Имя должно начинаться с заглавной буквы\n${question.question}" to status.color
-            question == Question.PROFESSION && (answer.first().isUpperCase() || answer.first().isDigit()) ->
+            question == Question.PROFESSION && (answer.isEmpty() || answer.first().isUpperCase() || answer.first().isDigit()) ->
                 "Профессия должна начинаться со строчной буквы\n${question.question}" to status.color
             question == Question.MATERIAL && answer.contains(Regex("[0-9]")) ->
                 "Материал не должен содержать цифр\n${question.question}" to status.color
