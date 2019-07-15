@@ -2,100 +2,61 @@ package ru.skillbranch.devintensive.extensions
 
 import java.text.SimpleDateFormat
 import java.util.*
-
-
-const val SECOND = 1000L
-const val MINUTE = SECOND * 60L
-const val HOUR = MINUTE * 60L
-const val DAY = HOUR * 24L
+import ru.skillbranch.devintensive.extensions.TimeUnits.*
 
 fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy"): String {
     val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
     return dateFormat.format(this)
 }
 
-fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
-    var time = this.time
-
-    time += when(units){
-       TimeUnits.SECOND ->  value * SECOND
-       TimeUnits.MINUTE ->  value * MINUTE
-       TimeUnits.HOUR ->  value * HOUR
-       TimeUnits.DAY ->  value * DAY
-    }
-    this.time = time
+fun Date.add(value: Int, units: TimeUnits = SECOND): Date {
+    this.time = this.time + (units.value * value)
     return this
 }
 
 fun Date.humanizeDiff(date: Date = Date()): String {
+    var prefix = ""
+    var postfix = ""
+
     var difference = date.time - this.time
 
-    fun dif(type: Long, forOne: String = "", forTwoToFour: String = "", other: String = "") : String {
-
-        if (difference < 0) {
-            difference = -difference
-        }
-
-        return when {
-            difference/type in 5..20 -> other
-            (difference/type)%10  == 1L  -> forOne
-            (difference/type)%10 in 2..4  -> forTwoToFour
-            else -> other
-        }
+    if (difference < 0){
+        prefix = "через "
+        difference = -difference
+    } else {
+        postfix = " назад"
     }
 
-    if (difference < 0) {
-        return when(-difference) {
-            in 0..1*SECOND -> "только что"
-            in 1*SECOND..45*SECOND -> "через несколько секунд"
-            in 45*SECOND..75*SECOND -> "через минуту"
-            in 75*SECOND..45*MINUTE -> "через ${-difference/ MINUTE}" +
-                    " ${dif(MINUTE, "минуту", "минуты", "минут")}"
-            in 45*MINUTE..75*MINUTE -> "через час"
-            in 75*MINUTE..22*HOUR -> "через ${-difference/ HOUR}" +
-                    " ${dif(HOUR, "час", "часа", "часов")}"
-            in 22*HOUR..26*HOUR -> "через день"
-            in 26*HOUR..360*DAY -> "через ${-difference/ DAY}" +
-                    " ${dif(DAY, "день", "дня", "дней")}"
-            else -> "более чем через год"
-        }
-    } else {
-        return when(difference) {
-            in 0..1*SECOND -> "только что"
-            in 1*SECOND..45*SECOND -> "несколько секунд назад"
-            in 45*SECOND..75*SECOND -> "минуту назад"
-            in 75*SECOND..45*MINUTE -> "${difference/ MINUTE}" +
-                    " ${dif(MINUTE, "минуту", "минуты", "минут")} назад"
-            in 45*MINUTE..75*MINUTE -> "час назад"
-            in 75*MINUTE..22*HOUR -> "${difference/ HOUR}" +
-                    " ${dif(HOUR, "час", "часа", "часов")} назад"
-            in 22*HOUR..26*HOUR -> "день назад"
-            in 26*HOUR..360*DAY -> "${difference/ DAY}" +
-                    " ${dif(DAY, "день", "дня", "дней")} назад"
-            else -> "более года назад"
-        }
+    return when(difference) {
+        in 0..1*SECOND.value -> "только что"
+        in 1*SECOND.value..45*SECOND.value -> "${prefix}несколько секунд$postfix"
+        in 45*SECOND.value..75*SECOND.value -> "${prefix}минуту$postfix"
+        in 75*SECOND.value..45*MINUTE.value -> "$prefix${MINUTE.plural(difference/MINUTE.value)}$postfix"
+        in 45*MINUTE.value..75*MINUTE.value -> "${prefix}час$postfix"
+        in 75*MINUTE.value..22*HOUR.value -> "$prefix${HOUR.plural(difference/HOUR.value)}$postfix"
+        in 22*HOUR.value..26*HOUR.value -> "${prefix}день$postfix"
+        in 26*HOUR.value..360*DAY.value -> "$prefix${DAY.plural(difference/DAY.value)}$postfix"
+        else -> if(date.time - this.time < 0) "более чем через год" else "более года назад"
     }
 }
 
-enum class TimeUnits(val ONE: String, val FEW: String, val MANY: String) {
+enum class TimeUnits(val value: Long, private val ONE: String, private val FEW: String, private val MANY: String) {
 
-    SECOND("секунду", "секунды", "секунд"),
-    MINUTE("минуту", "минуты", "минут"),
-    HOUR("час", "часа", "часов"),
-    DAY("день", "дня", "дней");
+    SECOND(1000L,"секунду", "секунды", "секунд"),
+    MINUTE(1000L*60L, "минуту", "минуты", "минут"),
+    HOUR(1000L*60L*60L, "час", "часа", "часов"),
+    DAY(1000L*60L*60L*24L, "день", "дня", "дней");
 
-    fun plural(num: Int) : String {
+    fun plural(num: Long) : String {
         return "$num ${this.getAmount(num)}"
     }
 
-    private fun getAmount(num: Int) : String {
+    private fun getAmount(num: Long) : String {
         return when{
-            num in 5..20 -> MANY
-            num%10  == 1  -> ONE
-            num%10 in 2..4  -> FEW
+            num in 5..20L -> MANY
+            num%10  == 1L  -> ONE
+            num%10 in 2..4L  -> FEW
             else -> MANY
         }
     }
-
-
 }
