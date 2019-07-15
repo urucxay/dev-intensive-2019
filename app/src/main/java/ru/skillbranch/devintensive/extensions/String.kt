@@ -7,6 +7,6 @@ package ru.skillbranch.devintensive.extensions
     }
 
     fun String.stripHtml() : String {
-        return this.replace("(<.*?>)|(&[^ а-я]{1,4}?;)".toRegex(), "")
-            .replace(" {2,}".toRegex(), " ")
+        return this.replace( Regex("(<.*?>)|(&[^ а-я]{1,4}?;)"), "")
+            .replace(Regex(" {2,}"), " ")
     }
