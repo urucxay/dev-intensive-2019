@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -12,8 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
-import ru.skillbranch.devintensive.extensions.isKeyboardOpen
-import ru.skillbranch.devintensive.extensions.isKeyboardClosed
 import ru.skillbranch.devintensive.models.Bender
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             hideKeyboard()
         }
 
-        messageEt.setOnEditorActionListener { textView, i, keyEvent ->
+        messageEt.setOnEditorActionListener { _, i, _ ->
              if (i == EditorInfo.IME_ACTION_DONE){
                  sendAnswer()
                  hideKeyboard()
@@ -71,6 +68,5 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState?.putString("STATUS", benderObj.status.name)
         outState?.putString("QUESTION", benderObj.question.name)
-        Log.d("M_MainActivity","onSaveInstanceState ${benderObj.status.name} ${benderObj.question.name}")
     }
 }
