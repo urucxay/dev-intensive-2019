@@ -1,0 +1,7 @@
+# Built application files
+build/
+libs/
+.idea/
+*.iml
+src/test/
+src/androidTest
