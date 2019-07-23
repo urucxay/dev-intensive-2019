@@ -50,7 +50,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_bg"
-        android:src="@drawable/avatar_solid_color"/>
+        android:src="@drawable/avatar_default"/>
 
     <TextView
         android:id="@+id/tv_nick_name"
@@ -253,7 +253,7 @@
         app:layout_constraintTop_toBottomOf="@+id/wr_about" />
 
     <ImageView
-        android:id="@+id/ic_repositiry"
+        android:id="@+id/ic_repository"
         android:layout_width="@dimen/btn_round_size_40"
         android:layout_height="@dimen/btn_round_size_40"
         android:layout_marginStart="16dp"
@@ -263,7 +263,7 @@
         app:srcCompat="@drawable/ic_repo" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
+        android:id="@+id/wr_repository"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -271,8 +271,8 @@
         android:hint="@string/profile_hint_repository"
         app:errorEnabled="true"
         app:layout_constraintEnd_toStartOf="@+id/ic_eye"
-        app:layout_constraintStart_toEndOf="@+id/ic_repositiry"
-        app:layout_constraintTop_toTopOf="@+id/ic_repositiry">
+        app:layout_constraintStart_toEndOf="@+id/ic_repository"
+        app:layout_constraintTop_toTopOf="@+id/ic_repository">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_repository"
@@ -288,10 +288,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="#00000000"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+        app:layout_constraintBottom_toBottomOf="@+id/wr_repository"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout4"
+        app:layout_constraintStart_toEndOf="@+id/wr_repository"
+        app:layout_constraintTop_toTopOf="@+id/wr_repository"
         app:srcCompat="@drawable/ic_eye_24dp" />
 
 
