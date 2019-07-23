@@ -4,6 +4,31 @@
         <attr name="aspectRatio" format="float"/>
     </declare-styleable>
 
+    <declare-styleable name="CircleImageView">
+        <attr name="cv_borderWidth" format="dimension"/>
+        <attr name="cv_borderColor" format="color"/>
+    </declare-styleable>
+
+<!--    <declare-styleable name="CircleImageView">-->
+<!--        <attr name="civ_borderWidth" format="dimension"/>-->
+<!--        <attr name="civ_borderColor" format="color"/>-->
+<!--    </declare-styleable>-->
+
+<!--    <declare-styleable name="CircleImageView">-->
+<!--        <attr name="border_width" format="dimension|integer" />-->
+<!--        <attr name="border_color" format="color|reference" />-->
+<!--        <attr name="circle_color" format="color"/>-->
+<!--        &lt;!&ndash;<attr name="text" format="string"/>-->
+<!--        <attr name="textSize" format="dimension"/>-->
+<!--        <attr name="textColor" format="color"/>-->
+<!--        <attr name="showInitials" format="boolean"/>&ndash;&gt;-->
+<!--    </declare-styleable>-->
+
+<!--    <declare-styleable name="CircleImageView">-->
+<!--        <attr name="cv_borderWidth" format="integer"/>-->
+<!--        <attr name="cv_borderColor" format="reference"/>-->
+<!--    </declare-styleable>-->
+
     <attr name="colorAccentedSurface" format="reference"/>
     <attr name="colorDivider" format="reference"/>
     <attr name="colorIcon" format="reference"/>

@@ -6,15 +6,14 @@
     android:opacity="opaque">
 
     <!-- Цвет фона, предпочтительно как в главной теме -->
-    <item android:drawable="@color/color_primary_dark" />
+    <item android:drawable="?attr/colorAccentedSurface" />
 
     <!-- Лого приложения - 144dp версия иконки приложения -->
     <item>
 
         <bitmap
             android:gravity="center"
-            android:src="@drawable/avatar_default" />
-
+            android:src="@drawable/ic_edit_black_24dp" />
     </item>
 
 </layer-list>

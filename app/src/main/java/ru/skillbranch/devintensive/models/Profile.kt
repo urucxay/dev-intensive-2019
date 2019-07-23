@@ -11,10 +11,12 @@ data class Profile(
     val respect: Int = 0
 ) {
     val fullName = "$firstName $lastName"
-    val nickName: String = Utils.transliteration(fullName, "_")
-    val rank: String = "Junior Android Developer111"
+    val nickName = Utils.transliteration(fullName, "_")
+    val initials = Utils.toInitials(firstName, lastName) ?: ""
+    val rank = "Junior Android Developer"
 
     fun toMap(): Map<String, Any> = mapOf(
+        "initials" to initials,
         "nickName" to nickName,
         "rank" to rank,
         "firstName" to firstName,

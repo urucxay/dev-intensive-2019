@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@+id/iv_avatar"
         app:srcCompat="@drawable/ic_switch_day_night" />
 
-    <ImageView
+    <ru.skillbranch.devintensive.ui.custom.CircleImageView
         android:id="@+id/iv_avatar"
         android:layout_width="@dimen/avatar_round_size"
         android:layout_height="@dimen/avatar_round_size"
@@ -50,7 +50,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_bg"
-        app:srcCompat="@drawable/avatar_default" />
+        android:src="@drawable/avatar_solid_color"/>
 
     <TextView
         android:id="@+id/tv_nick_name"
@@ -293,4 +293,6 @@
         app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
         app:layout_constraintTop_toTopOf="@+id/textInputLayout4"
         app:srcCompat="@drawable/ic_eye_24dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
