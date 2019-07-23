@@ -12,10 +12,11 @@ import android.graphics.drawable.Drawable
 import ru.skillbranch.devintensive.R
 import kotlin.math.min
 import android.graphics.BitmapShader
+import android.widget.ImageView
 
 
 class CircleImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
-    : AppCompatImageView(context, attrs, defStyleAttr) {
+    : ImageView(context, attrs, defStyleAttr) {
 
     companion object {
         private const val DEFAULT_BORDER_WIDTH = 2f
@@ -33,21 +34,17 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     private var mBitmapPaint: Paint
     private var mBorderPaint: Paint
 
-    private var mInitialized: Boolean = false
 
-
-    var borderWidth: Float = DEFAULT_BORDER_WIDTH
-    var borderColor: Int = DEFAULT_BORDER_COLOR
+    var borderWidth = DEFAULT_BORDER_WIDTH
+    var borderColor = DEFAULT_BORDER_COLOR
 
 
     init {
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyleAttr, 0)
-
             val defaultBorderSize = DEFAULT_BORDER_WIDTH * getContext().resources.displayMetrics.density
             borderWidth = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, defaultBorderSize)
             borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
-
             a.recycle()
         }
 
@@ -59,8 +56,6 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         mBorderPaint.color = borderColor
         mBorderPaint.style = Paint.Style.STROKE
         mBorderPaint.strokeWidth = borderWidth
-
-        mInitialized = true
 
         setupBitmap()
     }
@@ -105,9 +100,6 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     private fun setupBitmap() {
-        if (!mInitialized) {
-            return
-        }
         mBitmap = getBitmapFromDrawable(drawable) ?: return
 
         mBitmapShader = BitmapShader(mBitmap!!, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
@@ -138,29 +130,19 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     override fun onDraw(canvas: Canvas) {
-        drawBitmap(canvas)
-        drawBorder(canvas)
-    }
-
-    private fun drawBorder(canvas: Canvas) {
-        if (mBorderPaint.strokeWidth > 0f) {
-            canvas.drawOval(mBorderBounds, mBorderPaint)
-        }
-    }
-
-    private fun drawBitmap(canvas: Canvas) {
+        canvas.drawOval(mBorderBounds, mBorderPaint)
         canvas.drawOval(mBitmapDrawBounds, mBitmapPaint)
     }
 
-    fun getBorderWidth():Int = borderWidth.toInt()
+    fun getBorderWidth(): Int = borderWidth.toInt()
 
-    fun setBorderWidth(dp:Int) {
+    fun setBorderWidth(dp: Int) {
         borderWidth = dp.toFloat()
     }
 
-    fun getBorderColor():Color = Color.valueOf(borderColor)
+    fun getBorderColor(): Color = Color()
 
-    fun setBorderColor(hex:String) {
+    fun setBorderColor(hex: String) {
         borderColor = Color.parseColor(hex)
     }
 }
