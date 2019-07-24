@@ -78,20 +78,19 @@ class ProfileActivity : AppCompatActivity() {
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
         showCurrentMode(isEditMode)
 
+
         et_repository.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
-                if (isRepositoryValid(text)) {
+                val fullAddress = text.toString()
+                if (isRepositoryValid(fullAddress)) {
                     wr_repository.error = null
                     wr_repository.isErrorEnabled = false
                 } else {
                     wr_repository.error = "Невалидный адрес репозитория"
                 }
             }
-
-            override fun afterTextChanged(p0: Editable?) {
-            }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
         btn_edit.setOnClickListener {
@@ -117,6 +116,7 @@ class ProfileActivity : AppCompatActivity() {
         }
         ic_eye.visibility = if(isEdit) View.GONE else View.VISIBLE
         wr_about.isCounterEnabled = isEdit
+        wr_repository.isErrorEnabled = isEdit
 
         with(btn_edit) {
             val filter: ColorFilter? = if(isEdit) {
@@ -142,21 +142,20 @@ class ProfileActivity : AppCompatActivity() {
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
             about = et_about.text.toString(),
-            repository = et_repository.text.toString()
+            repository =  if(isRepositoryValid(et_repository.text.toString())) et_repository.text.toString() else ""
         ).apply {
             viewModel.saveProfileData(this)
         }
     }
 
-    fun isRepositoryValid(fullAddress: CharSequence) : Boolean {
-        val text = fullAddress.toString()
-        val address = text.substringBeforeLast("/").toLowerCase(Locale.getDefault())
-        val username = text.substringAfterLast("/").toLowerCase(Locale.getDefault())
+    fun isRepositoryValid(fullAddress: String) : Boolean {
+        val address = fullAddress.substringBeforeLast("/").toLowerCase(Locale.getDefault())
+        var username = fullAddress.substringAfterLast("/").toLowerCase(Locale.getDefault())
 
-        println("address: $address")
-        println("username: $username")
+        if (username == address) username = ""
 
         return when {
+            fullAddress == "" -> true
             isAddressValid(address) && isUserNameValid(username) -> true
             else -> false
         }
