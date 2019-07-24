@@ -13,6 +13,9 @@ import ru.skillbranch.devintensive.R
 import kotlin.math.min
 import android.graphics.BitmapShader
 import android.widget.ImageView
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 
 
 class CircleImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -35,8 +38,8 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     private var mBorderPaint: Paint
 
 
-    var borderWidth = DEFAULT_BORDER_WIDTH
-    var borderColor = DEFAULT_BORDER_COLOR
+    private var borderWidth = DEFAULT_BORDER_WIDTH
+    private var borderColor = DEFAULT_BORDER_COLOR
 
 
     init {
@@ -134,15 +137,21 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         canvas.drawOval(mBitmapDrawBounds, mBitmapPaint)
     }
 
-    fun getBorderWidth(): Int = borderWidth.toInt()
+    fun getBorderWidth(): Int = mBorderPaint.strokeWidth.toInt()
 
     fun setBorderWidth(dp: Int) {
-        borderWidth = dp.toFloat()
+        mBorderPaint.strokeWidth = dp.toFloat()
     }
 
-    fun getBorderColor(): Color = Color()
-
     fun setBorderColor(hex: String) {
-        borderColor = Color.parseColor(hex)
+        mBorderPaint.color = Color.parseColor(hex)
+    }
+
+    fun getBorderColor(): Int = borderColor
+
+    fun setBorderColor(@ColorRes colorId: Int) {
+        borderColor = ContextCompat.getColor(context, colorId)
+        mBorderPaint.color = borderColor
+        invalidate()
     }
 }
