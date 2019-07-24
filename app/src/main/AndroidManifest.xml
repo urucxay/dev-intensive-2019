@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name="ru.skillbranch.devintensive.ui.profile.ProfileActivity">
+        <activity android:name="ru.skillbranch.devintensive.ui.profile.ProfileActivity"
+                    android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

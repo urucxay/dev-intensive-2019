@@ -5,6 +5,8 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
+import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -36,9 +39,9 @@ class ProfileActivity : AppCompatActivity() {
         initViewModel()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putBoolean(IS_EDIT_MODE, isEditMode)
+        outState.putBoolean(IS_EDIT_MODE, isEditMode)
     }
 
     private fun initViewModel() {
@@ -74,6 +77,22 @@ class ProfileActivity : AppCompatActivity() {
 
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
         showCurrentMode(isEditMode)
+
+        et_repository.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
+                if (isRepositoryValid(text)) {
+                    wr_repository.error = null
+                    wr_repository.isErrorEnabled = false
+                } else {
+                    wr_repository.error = "Невалидный адрес репозитория"
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
 
         btn_edit.setOnClickListener {
             if (isEditMode) saveProfileInfo()
@@ -126,6 +145,59 @@ class ProfileActivity : AppCompatActivity() {
             repository = et_repository.text.toString()
         ).apply {
             viewModel.saveProfileData(this)
+        }
+    }
+
+    fun isRepositoryValid(fullAddress: CharSequence) : Boolean {
+        val text = fullAddress.toString()
+        val address = text.substringBeforeLast("/").toLowerCase(Locale.getDefault())
+        val username = text.substringAfterLast("/").toLowerCase(Locale.getDefault())
+
+        println("address: $address")
+        println("username: $username")
+
+        return when {
+            isAddressValid(address) && isUserNameValid(username) -> true
+            else -> false
+        }
+    }
+
+     private fun isUserNameValid(name: String) : Boolean {
+        val invalidNames = listOf(
+                "",
+                "enterprise",
+                "features",
+                "topics",
+                "collections",
+                "trending",
+                "events",
+                "marketplace",
+                "pricing",
+                "nonprofit",
+                "customer-stories",
+                "security",
+                "login",
+                "join")
+
+        return when {
+            invalidNames.any{ it == name} -> false
+            name.startsWith(" ") -> false
+            name.contains(Regex("[^a-zA-Z0-9-]")) -> false
+            name.startsWith("-") || name.endsWith("-") -> false
+            else -> true
+        }
+    }
+
+    private fun isAddressValid(address: String) : Boolean {
+        val validAddresses = listOf(
+                "https://www.github.com",
+                "https://github.com",
+                "www.github.com",
+                "github.com"
+        )
+        return when {
+            validAddresses.any{ it == address} -> true
+            else -> false
         }
     }
 }
