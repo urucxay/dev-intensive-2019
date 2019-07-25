@@ -33,7 +33,6 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        //устанавливаем тему до старта onCreate
         setTheme(R.style.AppTheme)
 
         super.onCreate(savedInstanceState)
@@ -204,15 +203,15 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun drawDefaultAvatar(initials: String) {
-        val bitmap = textAsBitmap(initials, 18f, Color.WHITE)
+    private fun drawDefaultAvatar(initials: String, textSize: Float = 48f, color: Int = Color.WHITE) {
+        val bitmap = textAsBitmap(initials, textSize, color)
         val drawable = BitmapDrawable(resources, bitmap)
         iv_avatar.setImageDrawable(drawable)
     }
 
     private fun textAsBitmap(text:String, textSize:Float, textColor:Int): Bitmap {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.textSize = (textSize * resources.displayMetrics.density).roundToInt().toFloat()
+        paint.textSize = textSize
         paint.color = textColor
         paint.textAlign = Paint.Align.CENTER
 
@@ -229,5 +228,4 @@ class ProfileActivity : AppCompatActivity() {
         context.theme.resolveAttribute(R.attr.colorAccent, value, true)
         return value.data
     }
-
 }
