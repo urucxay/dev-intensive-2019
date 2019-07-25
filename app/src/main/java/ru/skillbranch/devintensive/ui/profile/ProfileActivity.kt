@@ -41,9 +41,9 @@ class ProfileActivity : AppCompatActivity() {
         initViewModel()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(IS_EDIT_MODE, isEditMode)
+        outState?.putBoolean(IS_EDIT_MODE, isEditMode)
     }
 
     private fun initViewModel() {
