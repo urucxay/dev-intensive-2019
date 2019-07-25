@@ -14,6 +14,7 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import ru.skillbranch.devintensive.R
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 
 class CircleImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -211,10 +212,10 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
-    fun getBorderWidth(): Int = borderWidth.toInt()
+    fun getBorderWidth(): Int = borderWidth.roundToInt()
 
     fun setBorderWidth(dp: Int) {
-        borderWidth = dp.toFloat()
+        borderWidth = dp * resources.displayMetrics.density
     }
 
     fun setBorderColor(hex: String) {
