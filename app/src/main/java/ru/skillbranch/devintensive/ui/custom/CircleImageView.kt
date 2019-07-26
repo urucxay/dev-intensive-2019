@@ -69,7 +69,7 @@ class CircleImageView @JvmOverloads constructor(
         canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenter, paint)
     }
 
-    fun getBorderWidth(): Int = borderWidth.roundToInt()
+    fun getBorderWidth(): Int = (borderWidth/resources.displayMetrics.density).roundToInt()
 
     fun setBorderWidth(dp: Int) {
         borderWidth = dp * resources.displayMetrics.density

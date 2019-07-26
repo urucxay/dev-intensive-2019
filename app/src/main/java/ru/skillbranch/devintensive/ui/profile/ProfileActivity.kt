@@ -18,6 +18,7 @@ import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 import java.util.*
+import kotlin.math.roundToInt
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -211,16 +212,17 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun textAsBitmap(text:String, textSize:Float, textColor:Int): Bitmap {
+        val dp = resources.displayMetrics.density.roundToInt()
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.textSize = textSize
+        paint.textSize = textSize*dp
         paint.color = textColor
         paint.textAlign = Paint.Align.CENTER
 
-        val image = Bitmap.createBitmap(112, 112, Bitmap.Config.ARGB_8888)
+        val image = Bitmap.createBitmap(112*dp, 112*dp, Bitmap.Config.ARGB_8888)
 
         image.eraseColor(getThemeAccentColor(this))
         val canvas = Canvas(image)
-        canvas.drawText(text, 56f, 56f + paint.textSize/3, paint)
+        canvas.drawText(text, 56f*dp, 56f*dp + paint.textSize/3, paint)
         return image
     }
 
