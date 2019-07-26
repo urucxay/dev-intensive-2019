@@ -185,9 +185,9 @@ class ProfileActivity : AppCompatActivity() {
 
         return when {
             invalidNames.any{ it == name} -> false
-            name.startsWith(" ") -> false
-            name.contains(Regex("[^a-zA-Z0-9-]")) -> false
-            name.startsWith("-") || name.endsWith("-") -> false
+//            name.startsWith(" ") -> false
+//            name.contains(Regex("[^a-zA-Z0-9-]")) -> false
+//            name.startsWith("-") || name.endsWith("-") -> false
             else -> true
         }
     }
