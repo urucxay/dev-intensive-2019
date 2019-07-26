@@ -5,8 +5,6 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.view.View
-import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.ImageView.ScaleType.CENTER_CROP
 import android.widget.ImageView.ScaleType.CENTER_INSIDE
@@ -31,10 +29,10 @@ class CircleImageView @JvmOverloads constructor(
     private val paintBorder: Paint = Paint().apply { isAntiAlias = true }
 
     private var circleCenter = 0f
-    private var heightCircle: Int = 0
+    private var heightCircle = 0
 
-    private var borderWidth: Float = DEFAULT_BORDER_WIDTH * resources.displayMetrics.density
-    private var borderColor: Int = DEFAULT_BORDER_COLOR
+    private var borderWidth = DEFAULT_BORDER_WIDTH * resources.displayMetrics.density
+    private var borderColor = DEFAULT_BORDER_COLOR
 
     private var civImage: Bitmap? = null
 
@@ -61,14 +59,11 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        // Load the bitmap
         loadBitmap()
 
-        // Check if civImage isn't null
         if (civImage == null) return
 
         val circleCenterWithBorder = circleCenter + borderWidth
-        val margeWithShadowRadius = 0f
 
         canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenterWithBorder, paintBorder)
         canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenter, paint)
@@ -102,16 +97,7 @@ class CircleImageView @JvmOverloads constructor(
         circleCenter = (heightCircle - borderWidth * 2) / 2
         paintBorder.color = borderColor
 
-        manageElevation()
         invalidate()
-    }
-
-    private fun manageElevation() {
-        outlineProvider = object : ViewOutlineProvider() {
-            override fun getOutline(view: View?, outline: Outline?) {
-                outline?.setOval(0, 0, heightCircle, heightCircle)
-            }
-        }
     }
 
     private fun loadBitmap() {
