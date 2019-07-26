@@ -16,8 +16,10 @@ import ru.skillbranch.devintensive.R
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-
-class CircleImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+class CircleImageView @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0)
     : ImageView(context, attrs, defStyleAttr) {
 
     companion object {
@@ -28,44 +30,23 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     private val paint: Paint = Paint().apply { isAntiAlias = true }
     private val paintBorder: Paint = Paint().apply { isAntiAlias = true }
 
-    private var circleCenter = 0
+    private var circleCenter = 0f
     private var heightCircle: Int = 0
 
-    private var borderWidth: Float = DEFAULT_BORDER_WIDTH
+    private var borderWidth: Float = DEFAULT_BORDER_WIDTH * resources.displayMetrics.density
     private var borderColor: Int = DEFAULT_BORDER_COLOR
 
-
-    private var civColorFilter: ColorFilter? = null
-        set(value) {
-            if (field != value) {
-                field = value
-                if (field != null) {
-                    civDrawable = null // To force re-update shader
-                    invalidate()
-                }
-            }
-        }
-
     private var civImage: Bitmap? = null
-    private var civDrawable: Drawable? = null
 
     init {
         init(context, attrs, defStyleAttr)
     }
 
     private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
-        // Load the styled attributes and set their properties
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyleAttr, 0)
-
-        val defaultBorderSize = DEFAULT_BORDER_WIDTH * getContext().resources.displayMetrics.density
-        borderWidth = attributes.getDimension(R.styleable.CircleImageView_cv_borderWidth, defaultBorderSize)
-        borderColor = attributes.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
-
+        borderWidth = attributes.getDimension(R.styleable.CircleImageView_cv_borderWidth, borderWidth)
+        borderColor = attributes.getColor(R.styleable.CircleImageView_cv_borderColor, borderColor)
         attributes.recycle()
-    }
-
-    override fun setColorFilter(colorFilter: ColorFilter) {
-        civColorFilter = colorFilter
     }
 
     override fun getScaleType(): ScaleType =
@@ -89,8 +70,24 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         val circleCenterWithBorder = circleCenter + borderWidth
         val margeWithShadowRadius = 0f
 
-        canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenterWithBorder - margeWithShadowRadius, paintBorder)
-        canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenter - margeWithShadowRadius, paint)
+        canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenterWithBorder, paintBorder)
+        canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenter, paint)
+    }
+
+    fun getBorderWidth(): Int = borderWidth.roundToInt()
+
+    fun setBorderWidth(dp: Int) {
+        borderWidth = dp * resources.displayMetrics.density
+    }
+
+    fun setBorderColor(hex: String) {
+        borderColor = Color.parseColor(hex)
+    }
+
+    fun getBorderColor(): Int = borderColor
+
+    fun setBorderColor(@ColorRes colorId: Int) {
+        borderColor = ContextCompat.getColor(context, colorId)
     }
 
     private fun update() {
@@ -102,7 +99,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
 
         heightCircle = min(usableWidth, usableHeight)
 
-        circleCenter = (heightCircle - borderWidth * 2).toInt() / 2
+        circleCenter = (heightCircle - borderWidth * 2) / 2
         paintBorder.color = borderColor
 
         manageElevation()
@@ -118,10 +115,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     private fun loadBitmap() {
-        if (civDrawable == drawable) return
-
-        civDrawable = drawable
-        civImage = drawableToBitmap(civDrawable)
+        civImage = drawableToBitmap(drawable)
         updateShader()
     }
 
@@ -132,10 +126,8 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     private fun updateShader() {
         civImage?.also {
-            // Create Shader
             val shader = BitmapShader(it, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
 
-            // Center Image in Shader
             val scale: Float
             val dx: Float
             val dy: Float
@@ -171,11 +163,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
                 postTranslate(dx, dy)
             })
 
-            // Set Shader in Paint
             paint.shader = shader
-
-            // Apply colorFilter
-            paint.colorFilter = civColorFilter
         }
     }
 
@@ -195,36 +183,4 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
                 null
             }
         }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val width = measure(widthMeasureSpec)
-        val height = measure(heightMeasureSpec)
-        setMeasuredDimension(width, height)
-    }
-
-    private fun measure(measureSpec: Int): Int {
-        val specMode = MeasureSpec.getMode(measureSpec)
-        val specSize = MeasureSpec.getSize(measureSpec)
-        return when (specMode) {
-            MeasureSpec.EXACTLY -> specSize // The parent has determined an exact size for the child.
-            MeasureSpec.AT_MOST -> specSize // The child can be as large as it wants up to the specified size.
-            else -> heightCircle // The parent has not imposed any constraint on the child.
-        }
-    }
-
-    fun getBorderWidth(): Int = borderWidth.roundToInt()
-
-    fun setBorderWidth(dp: Int) {
-        borderWidth = dp * resources.displayMetrics.density
-    }
-
-    fun setBorderColor(hex: String) {
-        borderColor = Color.parseColor(hex)
-    }
-
-    fun getBorderColor(): Int = borderColor
-
-    fun setBorderColor(@ColorRes colorId: Int) {
-        borderColor = ContextCompat.getColor(context, colorId)
-    }
 }

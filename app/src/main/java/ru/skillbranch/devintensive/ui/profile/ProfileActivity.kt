@@ -32,9 +32,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var viewFields: Map<String, TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         setTheme(R.style.AppTheme)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
@@ -97,6 +95,11 @@ class ProfileActivity : AppCompatActivity() {
         })
 
         btn_edit.setOnClickListener {
+
+            if (!isRepositoryValid(et_repository.text.toString())) {
+                et_repository.setText("")
+            }
+
             if (isEditMode) saveProfileInfo()
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
@@ -145,7 +148,7 @@ class ProfileActivity : AppCompatActivity() {
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
             about = et_about.text.toString(),
-            repository =  if(isRepositoryValid(et_repository.text.toString())) et_repository.text.toString() else ""
+            repository =  et_repository.text.toString()
         ).apply {
             viewModel.saveProfileData(this)
         }
