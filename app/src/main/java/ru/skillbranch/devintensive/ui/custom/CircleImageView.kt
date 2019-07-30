@@ -37,10 +37,6 @@ class CircleImageView @JvmOverloads constructor(
     private var civImage: Bitmap? = null
 
     init {
-        init(context, attrs, defStyleAttr)
-    }
-
-    private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyleAttr, 0)
         borderWidth = attributes.getDimension(R.styleable.CircleImageView_cv_borderWidth, borderWidth)
         borderColor = attributes.getColor(R.styleable.CircleImageView_cv_borderColor, borderColor)
@@ -158,7 +154,6 @@ class CircleImageView @JvmOverloads constructor(
             null -> null
             is BitmapDrawable -> drawable.bitmap
             else -> try {
-                // Create Bitmap object out of the drawable
                 val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
                 val canvas = Canvas(bitmap)
                 drawable.setBounds(0, 0, canvas.width, canvas.height)

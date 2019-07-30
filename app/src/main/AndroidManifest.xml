@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
         <activity android:name="ru.skillbranch.devintensive.ui.profile.ProfileActivity"
-                    android:windowSoftInputMode="adjustResize">
+                    android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
