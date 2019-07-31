@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
-import java.util.*
 import kotlin.math.roundToInt
 
 class ProfileActivity : AppCompatActivity() {
@@ -27,7 +26,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private lateinit var viewModel: ProfileViewModel
-    var isEditMode = false
+    private var isEditMode = false
     private lateinit var viewFields: Map<String, TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +56,10 @@ class ProfileActivity : AppCompatActivity() {
     private fun checkValidationError(isValidate: Boolean) {
         if (isValidate) {
             wr_repository.error = null
+            nested_scroll.scrollY = et_repository.bottom
         } else {
             wr_repository.error = "Невалидный адрес репозитория"
-            nested_scroll.fullScroll(View.FOCUS_DOWN)
+            nested_scroll.scrollY = wr_repository.bottom
             et_repository.requestFocus()
         }
     }
