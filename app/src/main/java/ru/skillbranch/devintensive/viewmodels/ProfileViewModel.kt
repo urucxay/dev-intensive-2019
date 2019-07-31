@@ -42,7 +42,7 @@ class ProfileViewModel : ViewModel() {
 
     fun repositoryValidation(repository: String) {
         isRepoValid.value = repository.isEmpty() || repository.matches(
-                Regex("^(https://)?(www.)?(github.com/)(?!(${getRegexExceptions()})(?=/|$)(?![\\W])(?!\\w+[-]{2})[a-zA-Z0-9-]+(?<![-])(/)?$"))
+                Regex("^(https://)?(www.)?(github.com/)(?!(${getRegexExceptions()})(?=/|\$))(?![\\W])(?!\\w+[-]{2})[a-zA-Z0-9-]+(?<![-])(/)?$"))
     }
 
     private fun getRegexExceptions(): String {
