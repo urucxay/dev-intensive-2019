@@ -38,19 +38,30 @@ class ProfileActivity : AppCompatActivity() {
         initViewModel()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putBoolean(IS_EDIT_MODE, isEditMode)
+        outState.putBoolean(IS_EDIT_MODE, isEditMode)
     }
 
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         viewModel.getProfileData().observe(this, Observer { updateUI(it) })
         viewModel.getTheme().observe(this, Observer { updateTheme(it) })
+        viewModel.isRepoValid().observe(this, Observer { checkValidationError(it) })
     }
 
     private fun updateTheme(mode: Int) {
         delegate.setLocalNightMode(mode)
+    }
+
+    private fun checkValidationError(isValidate: Boolean) {
+        if (isValidate) {
+            wr_repository.error = null
+        } else {
+            wr_repository.error = "Невалидный адрес репозитория"
+            nested_scroll.fullScroll(View.FOCUS_DOWN)
+            et_repository.requestFocus()
+        }
     }
 
     private fun updateUI(profile: Profile) {
@@ -81,21 +92,14 @@ class ProfileActivity : AppCompatActivity() {
 
         et_repository.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
-                val fullAddress = text.toString()
-                if (isRepositoryValid(fullAddress)) {
-                    wr_repository.error = null
-                    wr_repository.isErrorEnabled = false
-                } else {
-                    wr_repository.error = "Невалидный адрес репозитория"
-                }
+                viewModel.repositoryValidation(text.toString())
             }
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
         btn_edit.setOnClickListener {
-
-            if (!isRepositoryValid(et_repository.text.toString())) {
+            if (wr_repository.error == "Невалидный адрес репозитория"){
                 et_repository.setText("")
             }
 
@@ -150,58 +154,6 @@ class ProfileActivity : AppCompatActivity() {
             repository =  et_repository.text.toString()
         ).apply {
             viewModel.saveProfileData(this)
-        }
-    }
-
-    fun isRepositoryValid(fullAddress: String) : Boolean {
-        val address = fullAddress.substringBeforeLast("/").toLowerCase(Locale.getDefault())
-        var username = fullAddress.substringAfterLast("/").toLowerCase(Locale.getDefault())
-
-        if (username == address) username = ""
-
-        return when {
-            fullAddress == "" -> true
-            isAddressValid(address) && isUserNameValid(username) -> true
-            else -> false
-        }
-    }
-
-     private fun isUserNameValid(name: String) : Boolean {
-        val invalidNames = listOf(
-                "",
-                "enterprise",
-                "features",
-                "topics",
-                "collections",
-                "trending",
-                "events",
-                "marketplace",
-                "pricing",
-                "nonprofit",
-                "customer-stories",
-                "security",
-                "login",
-                "join")
-
-        return when {
-            invalidNames.any{ it == name} -> false
-//            name.startsWith(" ") -> false
-//            name.contains(Regex("[^a-zA-Z0-9-]")) -> false
-//            name.startsWith("-") || name.endsWith("-") -> false
-            else -> true
-        }
-    }
-
-    private fun isAddressValid(address: String) : Boolean {
-        val validAddresses = listOf(
-                "https://www.github.com",
-                "https://github.com",
-                "www.github.com",
-                "github.com"
-        )
-        return when {
-            validAddresses.any{ it == address} -> true
-            else -> false
         }
     }
 
