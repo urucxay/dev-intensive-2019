@@ -1,5 +1,9 @@
 package ru.skillbranch.devintensive.utils
 
+import android.content.Context
+import android.util.TypedValue
+import ru.skillbranch.devintensive.R
+
 object Utils {
 
     fun parseFullName(fullName: String?): Pair<String?, String?> {
@@ -67,4 +71,10 @@ object Utils {
         'ю' to "yu",
         'я' to "ya"
     )
+
+    fun getThemeAccentColor(context: Context): Int {
+        val value = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+        return value.data
+    }
 }
