@@ -31,7 +31,7 @@ class CircleImageView @JvmOverloads constructor(
     private var circleCenter = 0f
     private var heightCircle = 0
 
-    private var borderWidth = DEFAULT_BORDER_WIDTH * resources.displayMetrics.density
+    private var borderWidth = DEFAULT_BORDER_WIDTH.dp
     private var borderColor = DEFAULT_BORDER_COLOR
 
     private var civImage: Bitmap? = null
@@ -57,16 +57,19 @@ class CircleImageView @JvmOverloads constructor(
 
     fun setBorderWidth(widthInDp: Int) {
         borderWidth = widthInDp.toFloat().dp
+        invalidate()
     }
 
     fun setBorderColor(hex: String) {
         borderColor = Color.parseColor(hex)
+        invalidate()
     }
 
     fun getBorderColor(): Int = borderColor
 
     fun setBorderColor(@ColorRes colorId: Int) {
         borderColor = ContextCompat.getColor(context, colorId)
+        invalidate()
     }
 
     fun drawDefaultAvatar(initials: String, textSize: Float = 48f, textColor: Int = Color.WHITE) : Bitmap {
