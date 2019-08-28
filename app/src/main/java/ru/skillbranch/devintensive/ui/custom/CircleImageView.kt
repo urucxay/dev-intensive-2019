@@ -14,7 +14,7 @@ import ru.skillbranch.devintensive.extensions.toDp
 import ru.skillbranch.devintensive.utils.Utils.getThemeAccentColor
 import kotlin.math.min
 
-class CircleImageView @JvmOverloads constructor(
+open class CircleImageView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0)
@@ -72,7 +72,12 @@ class CircleImageView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun drawDefaultAvatar(initials: String, textSize: Float = 48f, textColor: Int = Color.WHITE) : Bitmap {
+//    fun setInitials(initials: String) {
+//        setImageBitmap(drawDefaultAvatar(initials))
+//        invalidate()
+//    }
+
+    fun drawDefaultAvatar(initials: String, textSize: Float = 20f, textColor: Int = Color.WHITE) : Bitmap {
         val paint = Paint().apply {
             isAntiAlias = true
             this.textSize = textSize.dp

@@ -60,3 +60,13 @@ enum class TimeUnits(val value: Long, private val ONE: String, private val FEW: 
         }
     }
 }
+
+fun Date.shortFormat(): String? {
+    val pattern = if (this.issSameDay(Date())) "HH:mm" else "dd.MM.yy"
+    val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
+    return dateFormat.format(this)
+}
+
+fun Date.issSameDay(date: Date) : Boolean {
+    return this.time/ DAY.value == date.time/ DAY.value
+}

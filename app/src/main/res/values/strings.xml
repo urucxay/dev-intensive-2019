@@ -6,4 +6,5 @@
     <string name="profile_hint_about">О себе</string>
     <string name="profile_hint_last_name">Фамилия</string>
     <string name="profile_hint_first_name">Имя</string>
+    <string name="menu_search_title">Поиск</string>
 </resources>
