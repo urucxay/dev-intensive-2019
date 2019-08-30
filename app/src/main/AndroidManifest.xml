@@ -13,7 +13,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.group.GroupActivity"></activity>
+        <activity android:name=".ui.archive.ArchiveActivity"></activity>
+        <activity android:name=".ui.group.GroupActivity" />
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +25,7 @@
         <activity
                 android:name=".ui.profile.ProfileActivity"
                 android:theme="@style/SplashTheme"
-                android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+                android:windowSoftInputMode="stateHidden|adjustResize" />
     </application>
 
 </manifest>

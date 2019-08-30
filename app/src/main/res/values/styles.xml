@@ -1,5 +1,18 @@
 <resources>
 
+    <style name="MySnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:background">@drawable/bg_snackbar</item>
+    </style>
+
+    <!--    <style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance" tools:override="true">-->
+    <!--        <item name="android:textColor">@color/color_green</item>-->
+    <!--        <item name="android:textSize">14sp</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="SnackbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">-->
+    <!--        <item name="android:textColor">@color/color_green</item>-->
+    <!--    </style>-->
+
     <style name="ActivityTransitions" parent="android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/bottom_up</item>
         <item name="android:activityOpenExitAnimation">@anim/idle</item>
@@ -55,6 +68,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/font_large_20</item>
     </style>
+
     <style name="Profile.InfoItem">
         <item name="android:paddingTop">@dimen/spacing_normal_16</item>
         <item name="android:paddingBottom">5dp</item>

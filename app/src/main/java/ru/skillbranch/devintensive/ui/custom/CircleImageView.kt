@@ -21,7 +21,7 @@ open class CircleImageView @JvmOverloads constructor(
     : ImageView(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val DEFAULT_BORDER_WIDTH = 2f
+        private const val DEFAULT_BORDER_WIDTH = 0f
         private const val DEFAULT_BORDER_COLOR = Color.WHITE
     }
 

@@ -25,5 +25,4 @@ object ChatRepository {
         copy[index] = chat
         chats.value = copy
     }
-
 }

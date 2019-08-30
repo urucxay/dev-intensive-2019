@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@android:color/white"
+        android:background="?attr/colorItemView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_size"
         android:padding="@dimen/spacing_normal_16">
@@ -29,7 +29,7 @@
             android:layout_toEndOf="@id/iv_avatar_single"
             android:layout_toStartOf="@id/tv_date_single"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorTitle"
             android:textSize="14sp"
             tools:text="chat title" />
 
@@ -43,7 +43,7 @@
             android:layout_toStartOf="@id/tv_counter_single"
             android:layout_below="@id/tv_title_single"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorText"
             android:textSize="14sp"
             tools:text="some message" />
 
@@ -54,7 +54,7 @@
             android:textSize="@dimen/font_smallest_10"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorText"
             tools:text="24:24"/>
 
     <TextView

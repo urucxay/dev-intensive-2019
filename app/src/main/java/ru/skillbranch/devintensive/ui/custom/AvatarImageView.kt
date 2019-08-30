@@ -3,11 +3,7 @@ package ru.skillbranch.devintensive.ui.custom
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.extensions.dp
-import ru.skillbranch.devintensive.utils.Utils
-import kotlin.random.Random
 
 class AvatarImageView @JvmOverloads constructor(
     context: Context,
@@ -22,6 +18,9 @@ class AvatarImageView @JvmOverloads constructor(
     private var initials: String = DEFAULT_INITIALS
     private lateinit var paint: Paint
     private lateinit var bitmap: Bitmap
+    private lateinit var canvas: Canvas
+
+
 
 //    init {
 //        if (attrs != null) {
@@ -74,20 +73,24 @@ class AvatarImageView @JvmOverloads constructor(
         val textBottom = backgroundBounds.centerY() - textBounds.exactCenterY()
 
         bitmap = Bitmap.createBitmap(layoutParams.width, layoutParams.height, Bitmap.Config.ARGB_8888)
-//        bitmap.eraseColor(Utils.getThemeAccentColor(context))
-        bitmap.eraseColor(getRandomColor())
-        val canvas = Canvas(bitmap)
+        bitmap.eraseColor(getColorFromInitials(initials))
+        canvas = Canvas(bitmap)
         canvas.drawText(initials, backgroundBounds.centerX(), textBottom , paint)
         return bitmap
     }
 
-    private fun getRandomColor() : Int {
-        return when(Random.nextInt(5)) {
-            0 -> R.color.color_primary
-            1 -> R.color.color_accent_night
-            2 -> Color.RED
-            3 -> Color.MAGENTA
-            else ->Color.BLUE
+    private fun getColorFromInitials(initials: String) : Int {
+        return when(initials.hashCode()%10) {
+            0 -> resources.getColor(R.color.color_avatar1, context.theme)
+            1 -> resources.getColor(R.color.color_avatar2, context.theme)
+            2 -> resources.getColor(R.color.color_avatar3, context.theme)
+            3 -> resources.getColor(R.color.color_avatar4, context.theme)
+            4 -> resources.getColor(R.color.color_avatar5, context.theme)
+            5 -> resources.getColor(R.color.color_avatar6, context.theme)
+            6 -> resources.getColor(R.color.color_avatar7, context.theme)
+            7 -> resources.getColor(R.color.color_avatar8, context.theme)
+            8 -> resources.getColor(R.color.color_avatar9, context.theme)
+            else -> resources.getColor(R.color.color_avatar10, context.theme)
         }
     }
 }

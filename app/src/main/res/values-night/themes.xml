@@ -9,9 +9,25 @@
 
         <item name="colorAccentedSurface">@color/color_divider_light</item>
         <item name="colorIcon">@android:color/white</item>
-        <item name="colorDivider">@color/color_divider_dark</item>
+        <item name="colorDivider">@color/color_divider_light</item>
         <item name="android:statusBarColor">@android:color/black</item>
 
+        <!--Colors for Night Theme-->
+        <item name="colorToolbar">@color/color_mine_shaft</item>
+        <item name="colorBackground">@color/color_cod_gray</item>
+        <item name="colorItemView">@color/color_nero</item>
+        <item name="colorCounter">@color/color_gray_dark</item>
+        <item name="colorArchiveIcon">@color/color_gray_dark</item>
+        <item name="colorSwipe">@color/color_accent_night</item>
+        <item name="colorSelected">@color/color_mine_shaft</item>
+        <item name="colorSnackBar">@android:color/white</item>
+        <item name="colorChipCloseTint">@color/color_gray</item>
+        <item name="colorChipBackground">@color/color_nero</item>
+        <item name="colorIndicator">@color/color_accent_night</item>
+
+        <item name="colorText">@color/color_gray</item>
+        <item name="colorTitle">@android:color/white</item>
+        <item name="colorSnackBarText">@color/color_cod_gray</item>
     </style>
 
 </resources>

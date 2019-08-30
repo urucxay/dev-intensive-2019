@@ -14,4 +14,19 @@
     <color name="color_divider_light">#1FFFFFFF</color>
     <color name="color_indicator">#581F99</color>
     <color name="color_green">#4FD149</color>
+    <color name="color_mine_shaft">#272727</color>
+    <color name="color_cod_gray">#121212</color>
+    <color name="color_nero">#1D1D1D</color>
+
+    <color name="color_avatar1">#A695E7</color>
+    <color name="color_avatar2">#65AADD</color>
+    <color name="color_avatar3">#FAA774</color>
+    <color name="color_avatar4">#6EC9CB</color>
+    <color name="color_avatar5">#7BC862</color>
+    <color name="color_avatar6">#E17076</color>
+    <color name="color_avatar7">#AD366B</color>
+    <color name="color_avatar8">#00BFA5</color>
+    <color name="color_avatar9">#B746F0</color>
+    <color name="color_avatar10">#4D66F1</color>
+
 </resources>

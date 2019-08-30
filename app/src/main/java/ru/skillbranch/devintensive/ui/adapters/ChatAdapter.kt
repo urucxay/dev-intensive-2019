@@ -1,6 +1,5 @@
 package ru.skillbranch.devintensive.ui.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_chat_archive.*
 import kotlinx.android.synthetic.main.item_chat_group.*
 import kotlinx.android.synthetic.main.item_chat_single.*
+import kotlinx.android.synthetic.main.item_chat_single.sv_indicator
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.models.data.ChatType
+import ru.skillbranch.devintensive.utils.Utils
 
 class ChatAdapter(private val listener: (ChatItem) -> Unit) :
     RecyclerView.Adapter<ChatAdapter.ChatItemViewHolder>() {
@@ -34,15 +36,9 @@ class ChatAdapter(private val listener: (ChatItem) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            SINGLE_TYPE -> SingleViewHolder(
-                inflater.inflate(
-                    R.layout.item_chat_single,
-                    parent,
-                    false
-                )
-            )
+            SINGLE_TYPE -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent,false))
             GROUP_TYPE -> GroupViewHolder(inflater.inflate(R.layout.item_chat_group, parent, false))
-            else -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
+            else -> ArchiveViewHolder(inflater.inflate(R.layout.item_chat_archive, parent, false))
         }
     }
 
@@ -79,15 +75,39 @@ class ChatAdapter(private val listener: (ChatItem) -> Unit) :
         abstract fun bind(item: ChatItem, listener: (ChatItem) -> Unit)
     }
 
+    inner class ArchiveViewHolder(itemView: View) : ChatItemViewHolder(itemView) {
+
+        override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
+
+            tv_date_archive.apply {
+                visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
+                text = item.lastMessageDate
+            }
+            tv_counter_archive.apply {
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
+                text = item.messageCount.toString()
+            }
+            tv_title_archive.text = item.title
+            tv_message_archive.text = item.shortDescription
+            itemView.setOnClickListener {
+                listener.invoke(item)
+            }
+            tv_message_author_archive.apply {
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
+                text = item.author
+            }
+        }
+    }
+
     inner class SingleViewHolder(itemView: View) : ChatItemViewHolder(itemView),
         ItemTouchViewHolder {
 
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            itemView.setBackgroundColor(Utils.getCurrntModeColor(itemView.context, R.attr.colorSelected))
         }
 
         override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(Utils.getCurrntModeColor(itemView.context, R.attr.colorItemView))
         }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
@@ -120,11 +140,11 @@ class ChatAdapter(private val listener: (ChatItem) -> Unit) :
         ItemTouchViewHolder {
 
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            itemView.setBackgroundColor(Utils.getCurrntModeColor(itemView.context, R.attr.colorSelected))
         }
 
         override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(Utils.getCurrntModeColor(itemView.context, R.attr.colorItemView))
         }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {

@@ -3,7 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_size"
-        android:background="@android:color/white"
+        android:background="?attr/colorItemView"
         android:padding="@dimen/spacing_normal_16">
 
     <ImageView
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/iv_avatar_user"
             android:textSize="14sp"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorTitle"
             android:fontFamily="sans-serif-medium"
             android:layout_marginStart="@dimen/spacing_normal_16"
             tools:text="User Name"/>
@@ -52,7 +52,7 @@
             android:layout_below="@id/tv_user_name"
             android:layout_marginStart="@dimen/spacing_normal_16"
             android:textSize="14sp"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorText"
             tools:text="online"/>
 
 </RelativeLayout>

@@ -35,8 +35,8 @@ data class Chat(
     private fun isSingle(): Boolean = members.size == 1
 
     fun toChatItem(): ChatItem {
+        val user = members.first()
         return if (isSingle()) {
-            val user = members.first()
             ChatItem(
                 id,
                 user.avatar,
@@ -51,7 +51,7 @@ data class Chat(
             ChatItem(
                 id,
                 null,
-                "",
+                Utils.toInitials(user.firstName, null) ?: "??",
                 title,
                 lastMessageShort().first,
                 unreadableMessageCount(),
@@ -62,6 +62,36 @@ data class Chat(
             )
         }
     }
+//    fun toChatItem(): ChatItem {
+//        val user = members.first()
+//        return when {
+//            members.isEmpty() -> ChatItem(
+//
+//            )
+//            members.size == 1 -> ChatItem(
+//                id,
+//                user.avatar,
+//                Utils.toInitials(user.firstName, user.lastName) ?: "??",
+//                "${user.firstName ?: ""} ${user.lastName ?: ""}",
+//                lastMessageShort().first,
+//                unreadableMessageCount(),
+//                lastMessageDate()?.shortFormat(),
+//                user.isOnline)
+//            else -> ChatItem(
+//                id,
+//                null,
+//                Utils.toInitials(user.firstName, null) ?: "??",
+//                title,
+//                lastMessageShort().first,
+//                unreadableMessageCount(),
+//                lastMessageDate()?.shortFormat(),
+//                false,
+//                ChatType.GROUP,
+//                lastMessageShort().second)
+//        }
+//}
+
+
 }
 
 

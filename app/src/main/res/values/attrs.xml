@@ -17,4 +17,21 @@
     <attr name="colorDivider" format="reference"/>
     <attr name="colorIcon" format="reference"/>
 
+    <!--Color for DAY and NIGHT themes-->
+    <attr name="colorToolbar" format="reference"/>
+    <attr name="colorBackground" format="reference"/>
+    <attr name="colorItemView" format="reference"/>
+    <attr name="colorCounter" format="reference"/>
+    <attr name="colorArchiveIcon" format="reference"/>
+    <attr name="colorSwipe" format="reference"/>
+    <attr name="colorSelected" format="reference"/>
+    <attr name="colorSnackBar" format="reference"/>
+    <attr name="colorChipCloseTint" format="reference"/>
+    <attr name="colorChipBackground" format="reference"/>
+    <attr name="colorIndicator" format="reference"/>
+
+    <attr name="colorText" format="reference"/>
+    <attr name="colorTitle" format="reference"/>
+    <attr name="colorSnackBarText" format="reference"/>
+
 </resources>

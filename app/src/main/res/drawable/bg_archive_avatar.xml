@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="?attr/colorIndicator"/>
-            <stroke android:width="2dp"
-                android:color="@android:color/white"/>
+            <size android:width="@dimen/avatar_item_size"/>
+            <size android:height="@dimen/avatar_item_size"/>
+            <solid android:color="?attr/colorArchiveIcon"/>
         </shape>
     </item>
 </selector>

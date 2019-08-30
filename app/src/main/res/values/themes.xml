@@ -11,6 +11,26 @@
         <item name="colorIcon">@color/color_gray</item>
         <item name="colorDivider">@color/color_divider_dark</item>
 
+        <!--Colors for Day Theme-->
+        <item name="colorToolbar">@color/color_primary</item>
+        <item name="colorBackground">@android:color/white</item>
+        <item name="colorItemView">@android:color/white</item>
+        <item name="colorCounter">@color/color_indicator</item>
+        <item name="colorArchiveIcon">@color/color_gray</item>
+        <item name="colorSwipe">@color/color_primary_dark</item>
+        <item name="colorSelected">@color/color_gray_light</item>
+        <item name="colorSnackBar">@color/color_primary</item>
+        <item name="colorChipCloseTint">@android:color/white</item>
+        <item name="colorChipBackground">@color/color_primary_light</item>
+        <item name="colorIndicator">@color/color_green</item>
+
+        <item name="colorText">@color/color_gray_dark</item>
+        <item name="colorTitle">@color/color_primary</item>
+        <item name="colorSnackBarText">@android:color/white</item>
+
+        <!--Use style for Default Snackbar Background Color-->
+        <!--        <item name="snackbarStyle">@style/MySnackBarStyle</item>-->
+
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransitions</item>
     </style>
