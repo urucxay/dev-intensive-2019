@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         divider.setDrawable(myDividerWithMargin)
 
-        val touchCallBack = ChatItemTouchHelperCallback(chatAdapter) {
+        val touchCallBack = ChatItemTouchHelperCallback(chatAdapter, false) {
             val id = it.id
             viewModel.addToArchive(id)
 

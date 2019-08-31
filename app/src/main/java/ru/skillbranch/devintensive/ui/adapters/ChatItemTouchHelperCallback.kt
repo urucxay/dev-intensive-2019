@@ -14,13 +14,13 @@ import ru.skillbranch.devintensive.utils.Utils
 
 class ChatItemTouchHelperCallback(
     private val adapter: ChatAdapter,
+    private val isArchive: Boolean,
     private val swipeListener: (ChatItem) -> Unit
 ) : ItemTouchHelper.Callback() {
 
     private val bgRect = RectF()
     private val bgPaint = Paint().apply { isAntiAlias = true }
     private val iconBounds = Rect()
-
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -81,7 +81,8 @@ class ChatItemTouchHelperCallback(
         itemView: View,
         dX: Float
     ) {
-        val icon = itemView.resources.getDrawable(R.drawable.ic_archive_black_24dp, itemView.context.theme)
+        val icon =  if (isArchive) itemView.resources.getDrawable(R.drawable.ic_unarchive_black_24dp, itemView.context.theme) else
+            itemView.resources.getDrawable(R.drawable.ic_archive_black_24dp, itemView.context.theme)
         val iconSize = itemView.resources.getDimensionPixelSize(R.dimen.icon_size)
         val space = itemView.resources.getDimensionPixelSize(R.dimen.spacing_normal_16)
         val margin = (itemView.bottom - itemView.top - iconSize)/2
@@ -109,7 +110,6 @@ class ChatItemTouchHelperCallback(
             bottom = itemView.bottom.toFloat()
         }
 
-//        bgPaint.color = itemView.resources.getColor(R.color.color_primary_dark, itemView.context.theme)
         bgPaint.color = Utils.getCurrntModeColor(context, R.attr.colorSwipe)
 
         canvas.drawRect(bgRect, bgPaint)

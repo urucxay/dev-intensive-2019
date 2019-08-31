@@ -55,7 +55,7 @@ class ArchiveActivity : AppCompatActivity() {
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         divider.setDrawable(myDividerWithMargin)
 
-        val touchCallBack = ChatItemTouchHelperCallback(chatAdapter) {
+        val touchCallBack = ChatItemTouchHelperCallback(chatAdapter, true) {
             val id = it.id
             viewModel.restoreFromArchive(id)
 
