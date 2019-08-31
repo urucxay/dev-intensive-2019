@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             val id = it.id
             viewModel.addToArchive(id)
 
-            Snackbar.make(rv_chat_list,"Вы точно хотите добавить ${it.title}  в архив?", Snackbar.LENGTH_LONG)
+            Snackbar.make(rv_chat_list,"Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
                 .setTextColor(Utils.getCurrntModeColor(this, R.attr.colorSnackBarText))
                 .setBackgroundDrawable(R.drawable.bg_snackbar)
                 .setAction("ОТМЕНА") { viewModel.restoreFromArchive(id) }
