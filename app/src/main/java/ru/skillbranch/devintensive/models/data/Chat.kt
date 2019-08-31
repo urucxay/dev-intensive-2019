@@ -20,16 +20,17 @@ data class Chat(
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageDate(): Date {
-        return messages.lastOrNull()?.date ?: Date()
+    fun lastMessageDate(): Date? {
+        return messages.lastOrNull()?.date
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageShort(): Pair<String?, String?> =
         when (val lastMessage = messages.lastOrNull()) {
-            is TextMessage -> lastMessage.text to lastMessage.from.firstName
-//            lastMessage as TextMessage -> lastMessage.text to lastMessage.from.firstName
-            else -> "Сообщений нет" to ""
+            is TextMessage -> lastMessage.text to "@${lastMessage.from.firstName}"
+//            is TextMessage -> lastMessage.text to "@${lastMessage.from.firstName} ${lastMessage.from.lastName ?: ""}"
+//            is TextMessage -> lastMessage.text to "@${Utils.transliteration("${lastMessage.from.firstName ?: ""} ${lastMessage.from.lastName ?: ""}")}"
+            else -> "Сообщений еще нет" to ""
         }
 
     private fun isSingle(): Boolean = members.size == 1
@@ -62,36 +63,6 @@ data class Chat(
             )
         }
     }
-//    fun toChatItem(): ChatItem {
-//        val user = members.first()
-//        return when {
-//            members.isEmpty() -> ChatItem(
-//
-//            )
-//            members.size == 1 -> ChatItem(
-//                id,
-//                user.avatar,
-//                Utils.toInitials(user.firstName, user.lastName) ?: "??",
-//                "${user.firstName ?: ""} ${user.lastName ?: ""}",
-//                lastMessageShort().first,
-//                unreadableMessageCount(),
-//                lastMessageDate()?.shortFormat(),
-//                user.isOnline)
-//            else -> ChatItem(
-//                id,
-//                null,
-//                Utils.toInitials(user.firstName, null) ?: "??",
-//                title,
-//                lastMessageShort().first,
-//                unreadableMessageCount(),
-//                lastMessageDate()?.shortFormat(),
-//                false,
-//                ChatType.GROUP,
-//                lastMessageShort().second)
-//        }
-//}
-
-
 }
 
 
