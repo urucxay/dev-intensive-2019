@@ -58,17 +58,17 @@ class MainViewModel : ViewModel() {
     private fun makeArchiveItem(archived : List<Chat>) : ChatItem {
         val count = archived.fold(0) { acc, chat -> acc + chat.unreadableMessageCount() }
 
-        val lastChat = if (archived.none { it.unreadableMessageCount() != 0 }) archived.maxBy { it.lastMessageDate() }!! else
-            archived.filter { it.unreadableMessageCount() != 0 }.maxBy { it.lastMessageDate() }!!
+        val lastChat: Chat = if (archived.none { it.unreadableMessageCount() != 0 }) archived.last() else
+            archived.filter { it.unreadableMessageCount() != 0 }.maxBy { it.lastMessageDate()!! }!!
 
         return ChatItem(
-            "-2",
+            "-1",
             null,
             "",
             "Архив чатов",
             lastChat.lastMessageShort().first,
             count,
-            lastChat.lastMessageDate().shortFormat(),
+            lastChat.lastMessageDate()?.shortFormat(),
             false,
             ChatType.ARCHIVE,
             lastChat.lastMessageShort().second
