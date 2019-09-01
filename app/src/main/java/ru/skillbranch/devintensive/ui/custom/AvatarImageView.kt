@@ -10,59 +10,25 @@ class AvatarImageView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0)
 : CircleImageView(context, attrs, defStyleAttr) {
-
-    companion object {
-        const val DEFAULT_INITIALS = "??"
-    }
-
-    private var initials: String = DEFAULT_INITIALS
     private lateinit var paint: Paint
     private lateinit var bitmap: Bitmap
     private lateinit var canvas: Canvas
 
-
-
-//    init {
-//        if (attrs != null) {
-//            val attributes = context.obtainStyledAttributes(attrs, R.styleable.AvatarImageView, defStyleAttr, 0)
-//            initials = attributes.getString(R.styleable.AvatarImageView_initials) ?: ""
-//            attributes.recycle()
-//        }
-//    }
-
-    override fun onDraw(canvas: Canvas) {
-//        if (this.drawable == null) {
-//            drawDefaultAvatar1(initials)
-//        }
-
-//        paint = Paint().apply {
-//            isAntiAlias = true
-//            this.textSize = (height/2.5f).dp
-//            color = Color.BLACK
-//            textAlign = Paint.Align.CENTER
-//        }
-//        val textBounds = Rect()
-//        paint.getTextBounds(initials, 0, initials.length, textBounds)
-//        val backgroundBounds = RectF()
-//        backgroundBounds.set(0f, 0f, layoutParams.width.toFloat(), layoutParams.height.toFloat())
-//        val textBottom = backgroundBounds.centerY() - textBounds.exactCenterY()
-//
-//        canvas.drawColor(Utils.getThemeAccentColor(context))
-//        canvas.drawText(initials, backgroundBounds.centerX(), textBottom , paint)
-        super.onDraw(canvas)
-
-    }
-
     fun setInitials(initials: String) {
-        setImageBitmap(drawDefaultAvatar1(initials))
+        setImageBitmap(drawAvatarWithInitials(initials))
         invalidate()
     }
 
-    private fun drawDefaultAvatar1(initials: String, textSize: Float = layoutParams.height/2.33f, textColor: Int = Color.WHITE) : Bitmap {
+    override fun onDraw(canvas: Canvas) {
+        setBorderWidth(0)
+        super.onDraw(canvas)
+    }
+
+    private fun drawAvatarWithInitials(initials: String) : Bitmap {
         paint = Paint().apply {
             isAntiAlias = true
-            this.textSize = textSize
-            color = textColor
+            this.textSize = layoutParams.height/2.33f
+            color = Color.WHITE
             textAlign = Paint.Align.CENTER
         }
 

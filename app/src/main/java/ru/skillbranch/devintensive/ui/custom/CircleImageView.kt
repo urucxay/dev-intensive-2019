@@ -21,7 +21,7 @@ open class CircleImageView @JvmOverloads constructor(
     : ImageView(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val DEFAULT_BORDER_WIDTH = 0f
+        private const val DEFAULT_BORDER_WIDTH = 2f
         private const val DEFAULT_BORDER_COLOR = Color.WHITE
     }
 
@@ -57,19 +57,19 @@ open class CircleImageView @JvmOverloads constructor(
 
     fun setBorderWidth(widthInDp: Int) {
         borderWidth = widthInDp.toFloat().dp
-        invalidate()
+        update()
     }
 
     fun setBorderColor(hex: String) {
         borderColor = Color.parseColor(hex)
-        invalidate()
+        update()
     }
 
     fun getBorderColor(): Int = borderColor
 
     fun setBorderColor(@ColorRes colorId: Int) {
         borderColor = ContextCompat.getColor(context, colorId)
-        invalidate()
+        update()
     }
 
 //    fun setInitials(initials: String) {
