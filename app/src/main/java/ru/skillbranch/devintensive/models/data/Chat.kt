@@ -3,6 +3,7 @@ package ru.skillbranch.devintensive.models.data
 import androidx.annotation.VisibleForTesting
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
+import ru.skillbranch.devintensive.models.ImageMessage
 import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
@@ -16,7 +17,7 @@ data class Chat(
 ) {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
-        return messages.size
+        return messages.filter { !it.isReaded }.size
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
@@ -28,8 +29,7 @@ data class Chat(
     fun lastMessageShort(): Pair<String?, String?> =
         when (val lastMessage = messages.lastOrNull()) {
             is TextMessage -> lastMessage.text to "${lastMessage.from.firstName}"
-//            is TextMessage -> lastMessage.text to "${lastMessage.from.firstName} ${lastMessage.from.lastName ?: ""}"
-//            is TextMessage -> lastMessage.text to "${Utils.transliteration("${lastMessage.from.firstName ?: ""} ${lastMessage.from.lastName ?: ""}")}"
+            is ImageMessage -> "${lastMessage.from.firstName} - отправил фото" to "${lastMessage.from.firstName}"
             else -> "Сообщений еще нет" to ""
         }
 
@@ -64,7 +64,6 @@ data class Chat(
         }
     }
 }
-
 
 enum class ChatType {
     SINGLE,
