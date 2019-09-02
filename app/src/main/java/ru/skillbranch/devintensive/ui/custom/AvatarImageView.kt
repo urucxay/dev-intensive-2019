@@ -20,7 +20,6 @@ class AvatarImageView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        setBorderWidth(0)
         super.onDraw(canvas)
     }
 
