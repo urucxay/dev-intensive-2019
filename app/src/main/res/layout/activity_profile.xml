@@ -48,7 +48,7 @@
             app:layout_constraintTop_toTopOf="@+id/iv_avatar"
             app:srcCompat="@drawable/ic_switch_day_night" />
 
-        <ru.skillbranch.devintensive.ui.custom.CircleImageView
+        <ru.skillbranch.devintensive.ui.custom.AvatarImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/avatar_round_size"
             android:layout_height="@dimen/avatar_round_size"

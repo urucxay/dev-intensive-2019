@@ -66,7 +66,8 @@ class ProfileActivity : AppCompatActivity() {
             for((k,v) in viewFields) {
                 v.text = it[k].toString()
             }
-            setDefaultAvatar(it["initials"].toString())
+            iv_avatar.setInitials(it["initials"].toString())
+            iv_avatar.setBorderWidth(2)
         }
     }
 
@@ -152,9 +153,5 @@ class ProfileActivity : AppCompatActivity() {
         ).apply {
             viewModel.saveProfileData(this)
         }
-    }
-
-    private fun setDefaultAvatar(initials: String) {
-        iv_avatar.setImageBitmap(iv_avatar.drawDefaultAvatar(initials))
     }
 }
