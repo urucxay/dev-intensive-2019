@@ -3,7 +3,6 @@ package ru.skillbranch.devintensive.ui.group
 import android.content.res.ColorStateList
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,7 +22,6 @@ import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_group.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.extensions.dp
 import ru.skillbranch.devintensive.models.data.UserItem
 import ru.skillbranch.devintensive.ui.adapters.UserAdapter
 import ru.skillbranch.devintensive.utils.Utils
@@ -52,10 +50,8 @@ class GroupActivity : AppCompatActivity() {
 
         userAdapter = UserAdapter { viewModel.handleSelectedItem(it.id) }
 
-        val myDivider = resources.getDrawable(R.drawable.divider_chat_list, theme)
-        val myDividerWithMargin = InsetDrawable(myDivider, 72.dp, 0, 0, 0)
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        divider.setDrawable(myDividerWithMargin)
+        divider.setDrawable(resources.getDrawable(R.drawable.divider_chat_list, theme))
 
         rv_user_list.apply {
             adapter = userAdapter

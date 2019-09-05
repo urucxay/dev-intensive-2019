@@ -1,7 +1,6 @@
 package ru.skillbranch.devintensive.ui.main
 
 import android.content.Intent
-import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.extensions.dp
 import ru.skillbranch.devintensive.extensions.setBackgroundDrawable
 import ru.skillbranch.devintensive.extensions.setTextColor
 import ru.skillbranch.devintensive.models.data.ChatType
@@ -56,14 +54,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val myDivider = resources.getDrawable(R.drawable.divider_chat_list, theme)
-        val myDividerWithMargin = InsetDrawable(myDivider, 72.dp, 0, 0, 0)
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        divider.setDrawable(myDividerWithMargin)
+        divider.setDrawable(resources.getDrawable(R.drawable.divider_chat_list, theme))
 
         val touchCallBack = ChatItemTouchHelperCallback(chatAdapter, false) {
             val id = it.id
             viewModel.addToArchive(id)
+            val layoutManager = rv_chat_list.layoutManager as LinearLayoutManager
+            if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                rv_chat_list.scrollToPosition(0)
+            }
 
             Snackbar.make(rv_chat_list,"Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
                 .setTextColor(Utils.getCurrntModeColor(this, R.attr.colorSnackBarText))
