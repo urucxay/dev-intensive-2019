@@ -3,6 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_size"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="?attr/colorItemView"
         android:padding="@dimen/spacing_normal_16">
 
@@ -21,7 +22,8 @@
             android:id="@+id/iv_avatar_user"
             android:layout_width="@dimen/avatar_item_size"
             android:layout_height="@dimen/avatar_item_size"
-            android:layout_toEndOf="@id/iv_selected" />
+            android:layout_toEndOf="@id/iv_selected"
+            app:cv_borderWidth="0dp"/>
 
     <View
             android:id="@+id/sv_indicator"
