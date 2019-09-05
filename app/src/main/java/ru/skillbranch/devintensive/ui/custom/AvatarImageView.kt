@@ -15,15 +15,6 @@ class AvatarImageView @JvmOverloads constructor(
     private lateinit var canvas: Canvas
 
     fun setInitials(initials: String) {
-        setImageBitmap(drawAvatarWithInitials(initials))
-        invalidate()
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-    }
-
-    private fun drawAvatarWithInitials(initials: String) : Bitmap {
         paint = Paint().apply {
             isAntiAlias = true
             this.textSize = layoutParams.height/2.33f
@@ -41,7 +32,8 @@ class AvatarImageView @JvmOverloads constructor(
         bitmap.eraseColor(getColorFromInitials(initials))
         canvas = Canvas(bitmap)
         canvas.drawText(initials, backgroundBounds.centerX(), textBottom , paint)
-        return bitmap
+        setImageBitmap(bitmap)
+        invalidate()
     }
 
     private fun getColorFromInitials(initials: String) : Int {
